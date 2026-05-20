@@ -6,14 +6,14 @@ use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Support\Facades\Crypt;
 
-class MathCaptcha implements ValidationRule
+class ImageCaptcha implements ValidationRule
 {
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         $token = request()->input('captcha_token');
 
         if (! $token) {
-            $fail('The spam check could not be verified. Please try again.');
+            $fail('The captcha could not be verified. Please refresh it and try again.');
 
             return;
         }
@@ -21,13 +21,13 @@ class MathCaptcha implements ValidationRule
         try {
             $expected = Crypt::decryptString($token);
         } catch (\Throwable $e) {
-            $fail('The spam check expired. Please solve the new question and resubmit.');
+            $fail('The captcha expired. Please refresh the image and try again.');
 
             return;
         }
 
-        if ((string) $value !== (string) $expected) {
-            $fail('The answer to the math question is incorrect.');
+        if (strtolower(trim((string) $value)) !== $expected) {
+            $fail('The characters you entered do not match the image.');
         }
     }
 }

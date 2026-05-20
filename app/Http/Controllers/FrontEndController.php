@@ -11,7 +11,7 @@ use App\Models\ReservationApplication;
 use App\Models\Inquiry;
 use App\Models\WebsiteSetting;
 use App\Models\SeoSetting;
-use App\Rules\MathCaptcha;
+use App\Rules\ImageCaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationReceived;
@@ -97,7 +97,7 @@ class FrontEndController extends Controller
             'phone' => 'required|string|max:20',
             'inquiry' => 'required|string',
             'pet_id' => 'nullable|exists:pets,id',
-            'captcha' => ['required', new MathCaptcha()],
+            'captcha' => ['required', new ImageCaptcha()],
         ], [
             'user_name.required' => 'Please enter your full name.',
             'email.required' => 'Please enter your email address.',
@@ -146,7 +146,7 @@ class FrontEndController extends Controller
             'phone' => 'nullable|string|max:20',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
-            'captcha' => ['required', new MathCaptcha()],
+            'captcha' => ['required', new ImageCaptcha()],
         ], [
             'name.required' => 'Please enter your name.',
             'email.required' => 'Please enter your email address.',

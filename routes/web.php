@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ApplicationMessageController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\AchievementController;
 use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\CaptchaController;
 
 // Debug route - remove after testing
 Route::get('/test-settings', function () {
@@ -41,6 +42,7 @@ Route::get("/pet/{slug}",[FrontEndController::class,"petDetails"])->name("pet.de
 Route::get("/reservation/{pet}",[FrontEndController::class,"showReservation"])->name("reservation.show");
 Route::post("/reservation/submit",[FrontEndController::class,"submitReservation"])->name("reservation.submit");
 Route::post("/contact",[FrontEndController::class,"submitContact"])->name("contact.submit");
+Route::get("/captcha/refresh",[CaptchaController::class,"refresh"])->name("captcha.refresh");
 
 // Admin Authentication Routes
 Route::prefix('admin')->name('admin.')->group(function () {
