@@ -77,10 +77,6 @@ class FrontEndController extends Controller
 
     public function showReservation(Pet $pet)
     {
-        if ($pet->is_reserved) {
-            return redirect()->route('pets')->with('error', 'This puppy is already reserved.');
-        }
-
         $pet->load('petColor');
         $settings = WebsiteSetting::first();
         $seo = SeoSetting::first();
@@ -119,7 +115,7 @@ class FrontEndController extends Controller
         if ($applicationCount >= 2) {
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'You have reached the maximum number of reservation applications for today. Please try again tomorrow.');
+                ->with('error', 'You have reached the maximum number of puppy inquiries for today. Please try again tomorrow.');
         }
 
         // Create the reservation application
@@ -135,7 +131,7 @@ class FrontEndController extends Controller
 
         // Redirect back with success message
         return redirect()->back()
-            ->with('success', 'Thank you for your reservation request! We have received your application and will contact you within 1-2 business days. Please check your email for confirmation.');
+            ->with('success', 'Thank you for your puppy inquiry! We have received it and will contact you within 1-2 business days. Please check your email for confirmation.');
     }
 
     public function submitContact(Request $request)

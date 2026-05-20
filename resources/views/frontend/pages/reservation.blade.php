@@ -57,9 +57,9 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <span class="section-subtitle">Reserve Now</span>
-                        <h1 class="section-title">Puppy Reservation</h1>
-                        <p class="lead">Complete the form below to reserve this beautiful puppy</p>
+                        <span class="section-subtitle">Get In Touch</span>
+                        <h1 class="section-title">Puppy Inquiry</h1>
+                        <p class="lead">Interested in puppies from this dog? Send us your inquiry below.</p>
                     </div>
                 </div>
             </div>
@@ -105,16 +105,11 @@
                                 @endif
 
                                 @if($pet->reg_no)
-                                    <div class="d-flex justify-content-between py-2 border-bottom">
+                                    <div class="d-flex justify-content-between py-2">
                                         <strong>Registration No:</strong>
                                         <span>{{ $pet->reg_no }}</span>
                                     </div>
                                 @endif
-
-                                <div class="d-flex justify-content-between py-2">
-                                    <strong>Status:</strong>
-                                    <span class="badge badge-success">Available</span>
-                                </div>
                             </div>
 
                             @if($pet->description)
@@ -131,7 +126,7 @@
                 <div class="col-lg-7">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Reservation Form</h4>
+                            <h4 class="card-title mb-4">Puppy Inquiry Form</h4>
 
                             <form action="{{ route('reservation.submit') }}" method="POST" id="reservationForm">
                                 @csrf
@@ -198,7 +193,7 @@
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary btn-lg w-100">
                                             <i class="bi bi-send-fill me-2"></i>
-                                            Submit Reservation Request
+                                            Submit Puppy Inquiry
                                         </button>
                                     </div>
 

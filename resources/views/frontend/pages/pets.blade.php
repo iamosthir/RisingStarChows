@@ -72,9 +72,6 @@
                     @foreach($pets as $pet)
                         <div class="col-md-6 col-lg-4" data-aos="zoom-in">
                             <div class="puppy-card h-100">
-                                <div class="puppy-badge {{ $pet->is_reserved ? 'reserved' : 'available' }}">
-                                    {{ $pet->is_reserved ? 'Reserved' : 'Available' }}
-                                </div>
                                 <div class="puppy-image" style="height: 280px; overflow: hidden; position: relative;">
                                     @if($pet->primaryImg)
                                         <img src="{{ asset($pet->primaryImg) }}" alt="{{ $pet->full_name }}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600'">
@@ -105,15 +102,9 @@
                                     @if($pet->description)
                                         <p class="puppy-description">{{ Str::limit($pet->description, 100) }}</p>
                                     @endif
-                                    @if(!$pet->is_reserved)
-                                        <a href="{{ route('reservation.show', $pet->id) }}" class="btn btn-primary w-100">
-                                            <i class="bi bi-heart-fill me-2"></i>Reserve Now
-                                        </a>
-                                    @else
-                                        <button class="btn btn-secondary w-100" disabled>
-                                            <i class="bi bi-check-circle me-2"></i>Reserved
-                                        </button>
-                                    @endif
+                                    <a href="{{ route('reservation.show', $pet->id) }}" class="btn btn-primary w-100">
+                                        <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
+                                    </a>
                                 </div>
                             </div>
                         </div>

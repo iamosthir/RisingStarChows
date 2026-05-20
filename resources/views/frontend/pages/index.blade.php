@@ -146,7 +146,6 @@
                 @forelse($puppies as $index => $puppy)
                     <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 100 }}">
                         <div class="puppy-card">
-                            <div class="puppy-badge available">Available</div>
                             <div class="puppy-image" style="height: 280px; overflow: hidden; position: relative;">
                                 @if($puppy->primaryImg)
                                     <img src="{{ asset($puppy->primaryImg) }}" alt="{{ $puppy->full_name }}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600'">
@@ -178,7 +177,7 @@
                                     <p class="puppy-description">{{ Str::limit($puppy->description, 80) }}</p>
                                 @endif
                                 <a href="{{ route('reservation.show', $puppy->id) }}" class="btn btn-primary w-100">
-                                    <i class="bi bi-heart-fill me-2"></i>Reserve Now
+                                    <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
                                 </a>
                             </div>
                         </div>

@@ -28,11 +28,6 @@
                 <div class="gallery-wrapper">
                     <!-- Main Image -->
                     <div class="main-image-container" id="mainImageContainer">
-                        @if($pet->is_reserved)
-                            <span class="status-badge reserved"><i class="bi bi-lock-fill me-1"></i>Reserved</span>
-                        @else
-                            <span class="status-badge available"><i class="bi bi-check-circle-fill me-1"></i>Available</span>
-                        @endif
                         <img src="{{ $pet->primaryImg ? asset($pet->primaryImg) : 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800' }}"
                              alt="{{ $pet->full_name }}"
                              class="main-pet-image"
@@ -96,17 +91,11 @@
                         <p class="pet-call-name">"{{ $pet->call_name }}"</p>
                     @endif
 
-                    <!-- Status Badges -->
+                    @if($pet->is_featured_dog)
                     <div class="d-flex gap-2 flex-wrap mt-3">
-                        @if($pet->is_reserved)
-                            <span class="pet-badge reserved"><i class="bi bi-lock-fill me-1"></i>Reserved</span>
-                        @else
-                            <span class="pet-badge available"><i class="bi bi-check-circle-fill me-1"></i>Available</span>
-                        @endif
-                        @if($pet->is_featured_dog)
-                            <span class="pet-badge featured"><i class="bi bi-star-fill me-1"></i>Featured</span>
-                        @endif
+                        <span class="pet-badge featured"><i class="bi bi-star-fill me-1"></i>Featured</span>
                     </div>
+                    @endif
                 </div>
 
                 <!-- Basic Information -->
@@ -256,14 +245,12 @@
                 </div>
                 @endif
 
-                <!-- Reserve Button -->
-                @if(!$pet->is_reserved)
+                <!-- Puppy Inquiry Button -->
                 <div class="mt-4" data-aos="fade-up" data-aos-delay="350">
                     <a href="{{ route('reservation.show', $pet->id) }}" class="reserve-btn">
-                        <i class="bi bi-heart-fill me-2"></i>Reserve {{ $pet->call_name ?? $pet->full_name }}
+                        <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
                     </a>
                 </div>
-                @endif
             </div>
         </div>
 
@@ -279,9 +266,6 @@
                 @foreach($relatedPets as $index => $related)
                 <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ $index * 100 }}">
                     <div class="related-pet-card">
-                        <div class="related-pet-badge {{ $related->is_reserved ? 'reserved' : 'available' }}">
-                            {{ $related->is_reserved ? 'Reserved' : 'Available' }}
-                        </div>
                         <div class="related-pet-image">
                             <img src="{{ $related->primaryImg ? asset($related->primaryImg) : 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600' }}"
                                  alt="{{ $related->full_name }}">
