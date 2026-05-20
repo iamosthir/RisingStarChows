@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php artisan make:migration:*)",
+      "Bash(php artisan make:model:*)",
+      "Bash(php artisan:*)",
+      "Bash(php artisan make:controller:*)",
+      "Bash(echo:*)",
+      "Bash(xargs ls:*)",
+      "Bash(grep:*)",
+      "Bash(Get-ChildItem -Path \"h:\\\\Laravel\\\\RisingStarChowsLatest\" -Force)",
+      "Bash(Select-Object Name)"
+    ]
+  }
+}
