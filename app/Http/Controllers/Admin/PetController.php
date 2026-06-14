@@ -37,6 +37,8 @@ class PetController extends Controller
             'birthdate' => 'nullable|date',
             'color' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:255',
+            'category' => 'nullable|in:Puppies,Breeding Dog,Companion Dog',
+            'available_status' => 'nullable|in:available,not available',
             'OFA' => 'nullable|string|max:255',
             'ref_link' => 'nullable|url|max:255',
             'description' => 'nullable|string',
@@ -111,6 +113,8 @@ class PetController extends Controller
             'birthdate' => 'nullable|date',
             'color' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:255',
+            'category' => 'nullable|in:Puppies,Breeding Dog,Companion Dog',
+            'available_status' => 'nullable|in:available,not available',
             'OFA' => 'nullable|string|max:255',
             'ref_link' => 'nullable|url|max:255',
             'description' => 'nullable|string',
@@ -194,6 +198,36 @@ class PetController extends Controller
 
         return redirect()->route('admin.pets.index')
             ->with('success', 'Pet deleted successfully');
+    }
+
+    public function bulkUpdate(Request $request)
+    {
+        $request->validate([
+            'pet_ids' => 'required|array|min:1',
+            'pet_ids.*' => 'integer|exists:pets,id',
+            'bulk_category' => 'nullable|in:Puppies,Breeding Dog,Companion Dog',
+            'bulk_available_status' => 'nullable|in:available,not available',
+        ], [
+            'pet_ids.required' => 'Please select at least one pet.',
+        ]);
+
+        $updates = [];
+        if ($request->filled('bulk_category')) {
+            $updates['category'] = $request->bulk_category;
+        }
+        if ($request->filled('bulk_available_status')) {
+            $updates['available_status'] = $request->bulk_available_status;
+        }
+
+        if (empty($updates)) {
+            return redirect()->route('admin.pets.index')
+                ->with('error', 'Please choose at least one field (Category or Available Status) to update.');
+        }
+
+        $count = Pet::whereIn('id', $request->pet_ids)->update($updates);
+
+        return redirect()->route('admin.pets.index')
+            ->with('success', "Updated {$count} pet(s) successfully.");
     }
 
     public function toggleReservation(Pet $pet)

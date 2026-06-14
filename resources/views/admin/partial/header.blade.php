@@ -99,6 +99,13 @@
           </li>
 
           <li class="nav-item">
+            <a href="{{ route('admin.content-pages.index') }}" class="nav-link {{ request()->routeIs('admin.content-pages.*') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>Content Pages</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
             <a href="{{ route('admin.reservation-applications.index') }}" class="nav-link {{ request()->routeIs('admin.reservation-applications.*') ? 'active' : '' }}">
               <i class="nav-icon fas fa-file-alt"></i>
               <p>Reservation Applications</p>

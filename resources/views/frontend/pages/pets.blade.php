@@ -102,9 +102,15 @@
                                     @if($pet->description)
                                         <p class="puppy-description">{{ Str::limit($pet->description, 100) }}</p>
                                     @endif
-                                    <a href="{{ route('reservation.show', $pet->id) }}" class="btn btn-primary w-100">
-                                        <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
-                                    </a>
+                                    @if($pet->category === 'Companion Dog')
+                                        <a href="{{ route('content-page.show', 'companion-dogs') }}#inquiry" class="btn btn-primary w-100">
+                                            <i class="bi bi-chat-dots-fill me-2"></i>Companion Dog Inquiry
+                                        </a>
+                                    @else
+                                        <a href="{{ route('content-page.show', 'puppies') }}#inquiry" class="btn btn-primary w-100">
+                                            <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
+                                        </a>
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ReservationApplicationController;
 use App\Http\Controllers\Admin\ApplicationMessageController;
 use App\Http\Controllers\Admin\InquiryController;
 use App\Http\Controllers\Admin\AchievementController;
+use App\Http\Controllers\Admin\ContentPageController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\CaptchaController;
 
@@ -42,6 +43,10 @@ Route::get("/pet/{slug}",[FrontEndController::class,"petDetails"])->name("pet.de
 Route::get("/reservation/{pet}",[FrontEndController::class,"showReservation"])->name("reservation.show");
 Route::post("/reservation/submit",[FrontEndController::class,"submitReservation"])->name("reservation.submit");
 Route::post("/contact",[FrontEndController::class,"submitContact"])->name("contact.submit");
+Route::get("/{pageSlug}",[FrontEndController::class,"contentPage"])
+    ->where("pageSlug","puppies|companion-dogs")
+    ->name("content-page.show");
+Route::post("/content-page/inquiry",[FrontEndController::class,"submitContentPageInquiry"])->name("content-page.inquiry");
 Route::get("/captcha/refresh",[CaptchaController::class,"refresh"])->name("captcha.refresh");
 
 // Admin Authentication Routes
@@ -63,6 +68,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Pets
         Route::post('pets/{pet}/toggle-reservation', [PetController::class, 'toggleReservation'])->name('pets.toggle-reservation');
         Route::delete('pets/gallery/{petImage}', [PetController::class, 'deleteGalleryImage'])->name('pets.gallery.delete');
+        Route::post('pets/bulk-update', [PetController::class, 'bulkUpdate'])->name('pets.bulk-update');
         Route::resource('pets', PetController::class);
 
         // Pet Colors
@@ -78,6 +84,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         // Achievements
         Route::get('achievements', [AchievementController::class, 'index'])->name('achievements.index');
         Route::post('achievements', [AchievementController::class, 'update'])->name('achievements.update');
+
+        // Content Pages (Puppies / Companion Dogs)
+        Route::get('content-pages', [ContentPageController::class, 'index'])->name('content-pages.index');
+        Route::get('content-pages/{slug}/edit', [ContentPageController::class, 'edit'])->name('content-pages.edit');
+        Route::post('content-pages/{slug}', [ContentPageController::class, 'update'])->name('content-pages.update');
+        Route::delete('content-pages/{slug}/images/{image}', [ContentPageController::class, 'deleteImage'])->name('content-pages.images.delete');
 
         // Reservation Applications
         Route::resource('reservation-applications', ReservationApplicationController::class);

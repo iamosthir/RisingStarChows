@@ -245,10 +245,14 @@
                 </div>
                 @endif
 
-                <!-- Puppy Inquiry Button -->
+                <!-- Inquiry Button -->
+                @php
+                    $inquirySlug = $pet->category === 'Companion Dog' ? 'companion-dogs' : 'puppies';
+                    $inquiryLabel = $pet->category === 'Companion Dog' ? 'Companion Dog Inquiry' : 'Puppy Inquiry';
+                @endphp
                 <div class="mt-4" data-aos="fade-up" data-aos-delay="350">
-                    <a href="{{ route('reservation.show', $pet->id) }}" class="reserve-btn">
-                        <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
+                    <a href="{{ route('content-page.show', $inquirySlug) }}#inquiry" class="reserve-btn">
+                        <i class="bi bi-chat-dots-fill me-2"></i>{{ $inquiryLabel }}
                     </a>
                 </div>
             </div>

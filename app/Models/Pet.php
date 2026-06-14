@@ -18,6 +18,8 @@ class Pet extends Model
         'birthdate',
         'color',
         'status',
+        'category',
+        'available_status',
         'is_reserved',
         'is_featured_dog',
         'slug',

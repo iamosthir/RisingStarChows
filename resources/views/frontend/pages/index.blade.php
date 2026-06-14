@@ -137,12 +137,12 @@
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
                 <span class="section-subtitle">Available Now</span>
-                <h2 class="section-title">Our Puppies</h2>
-                <p class="lead">Beautiful, healthy puppies ready for their forever homes</p>
+                <h2 class="section-title">{{ $puppiesPage?->title ?? 'Our Puppies' }}</h2>
+                <p class="lead">{{ $puppiesPage?->subtitle ?? 'Beautiful, healthy puppies ready for their forever homes' }}</p>
             </div>
 
             <!-- Puppies Grid -->
-            <div class="row g-4 mb-5">
+            <div class="row g-4 mb-4">
                 @forelse($puppies as $index => $puppy)
                     <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 100 }}">
                         <div class="puppy-card">
@@ -176,7 +176,7 @@
                                 @if($puppy->description)
                                     <p class="puppy-description">{{ Str::limit($puppy->description, 80) }}</p>
                                 @endif
-                                <a href="{{ route('reservation.show', $puppy->id) }}" class="btn btn-primary w-100">
+                                <a href="{{ route('content-page.show', 'puppies') }}#inquiry" class="btn btn-primary w-100">
                                     <i class="bi bi-chat-dots-fill me-2"></i>Puppy Inquiry
                                 </a>
                             </div>
@@ -191,11 +191,10 @@
                 @endforelse
             </div>
 
-            <!-- View All Button -->
             @if($puppies->count() > 0)
                 <div class="text-center mb-5">
-                    <a href="{{ route('pets') }}" class="btn btn-primary btn-lg">
-                        <i class="bi bi-grid-3x3-gap me-2"></i>View All Puppies
+                    <a href="{{ route('content-page.show', 'puppies') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-info-circle me-2"></i>More About Our Puppies
                     </a>
                 </div>
             @endif
@@ -282,6 +281,74 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Companion Dogs Section -->
+    <section id="companion-dogs" class="puppies-section py-5">
+        <div class="container py-5">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="section-subtitle">For Loving Homes</span>
+                <h2 class="section-title">{{ $companionDogsPage?->title ?? 'Companion Dogs' }}</h2>
+                <p class="lead">{{ $companionDogsPage?->subtitle ?? 'Retired breeding dogs looking for loving homes' }}</p>
+            </div>
+
+            <div class="row g-4">
+                @forelse($companionDogs as $index => $companion)
+                    <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 100 }}">
+                        <div class="puppy-card">
+                            <div class="puppy-image" style="height: 280px; overflow: hidden; position: relative;">
+                                @if($companion->primaryImg)
+                                    <img src="{{ asset($companion->primaryImg) }}" alt="{{ $companion->full_name }}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600'">
+                                @else
+                                    <img src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600" alt="Companion Dog" style="width: 100%; height: 100%; object-fit: cover;">
+                                @endif
+                            </div>
+                            <div class="puppy-details">
+                                <a href="{{ route('pet.details', $companion->slug) }}" class="text-decoration-none text-dark">
+                                    <h4 class="pet-name-hover">{{ $companion->call_name ?? $companion->full_name }}</h4>
+                                </a>
+                                <div class="puppy-info-row">
+                                    <span><i class="bi bi-{{ $companion->sex === 'Male' ? 'gender-male' : 'gender-female' }}"></i> {{ $companion->sex ?? 'N/A' }}</span>
+                                    @if($companion->birthdate)
+                                        <span><i class="bi bi-calendar3"></i> {{ $companion->birthdate->diffForHumans() }}</span>
+                                    @endif
+                                </div>
+                                @if($companion->color || $companion->reg_no)
+                                    <div class="puppy-info-row">
+                                        @if($companion->color)
+                                            <span><i class="bi bi-palette"></i> {{ $companion->color_name }}</span>
+                                        @endif
+                                        @if($companion->reg_no)
+                                            <span><i class="bi bi-card-text"></i> {{ Str::limit($companion->reg_no, 10) }}</span>
+                                        @endif
+                                    </div>
+                                @endif
+                                @if($companion->description)
+                                    <p class="puppy-description">{{ Str::limit($companion->description, 80) }}</p>
+                                @endif
+                                <a href="{{ route('content-page.show', 'companion-dogs') }}#inquiry" class="btn btn-primary w-100">
+                                    <i class="bi bi-chat-dots-fill me-2"></i>Companion Dog Inquiry
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-heart display-1 text-muted"></i>
+                        <h4 class="mt-3">No companion dogs available at the moment</h4>
+                        <p class="text-muted">Please check back soon!</p>
+                    </div>
+                @endforelse
+            </div>
+
+            @if($companionDogs->count() > 0)
+                <div class="text-center mt-4">
+                    <a href="{{ route('content-page.show', 'companion-dogs') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-info-circle me-2"></i>More About Our Companion Dogs
+                    </a>
+                </div>
+            @endif
         </div>
     </section>
 

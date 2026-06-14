@@ -178,6 +178,34 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select class="form-control @error('category') is-invalid @enderror" id="category" name="category">
+                                    <option value="">Select Category</option>
+                                    <option value="Puppies" {{ old('category', $pet->category) == 'Puppies' ? 'selected' : '' }}>Puppies</option>
+                                    <option value="Breeding Dog" {{ old('category', $pet->category) == 'Breeding Dog' ? 'selected' : '' }}>Breeding Dog</option>
+                                    <option value="Companion Dog" {{ old('category', $pet->category) == 'Companion Dog' ? 'selected' : '' }}>Companion Dog</option>
+                                </select>
+                                @error('category')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="available_status">Available Status</label>
+                                <select class="form-control @error('available_status') is-invalid @enderror" id="available_status" name="available_status">
+                                    <option value="available" {{ old('available_status', $pet->available_status) == 'available' ? 'selected' : '' }}>Available</option>
+                                    <option value="not available" {{ old('available_status', $pet->available_status) == 'not available' ? 'selected' : '' }}>Not Available</option>
+                                </select>
+                                @error('available_status')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group">
                                 <div class="custom-control custom-checkbox">

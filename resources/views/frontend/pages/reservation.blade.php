@@ -57,9 +57,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12 text-center">
+                        @php
+                            $inquiryLabel = $pet->category === 'Companion Dog' ? 'Companion Dog Inquiry' : 'Puppy Inquiry';
+                            $inquiryLead = $pet->category === 'Companion Dog'
+                                ? 'Interested in welcoming this companion into your home? Send us your inquiry below.'
+                                : 'Interested in puppies from this dog? Send us your inquiry below.';
+                        @endphp
                         <span class="section-subtitle">Get In Touch</span>
-                        <h1 class="section-title">Puppy Inquiry</h1>
-                        <p class="lead">Interested in puppies from this dog? Send us your inquiry below.</p>
+                        <h1 class="section-title">{{ $inquiryLabel }}</h1>
+                        <p class="lead">{{ $inquiryLead }}</p>
                     </div>
                 </div>
             </div>
@@ -126,7 +132,7 @@
                 <div class="col-lg-7">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <h4 class="card-title mb-4">Puppy Inquiry Form</h4>
+                            <h4 class="card-title mb-4">{{ $inquiryLabel }} Form</h4>
 
                             <form action="{{ route('reservation.submit') }}" method="POST" id="reservationForm">
                                 @csrf
@@ -193,7 +199,7 @@
                                     <div class="col-12">
                                         <button type="submit" class="btn btn-primary btn-lg w-100">
                                             <i class="bi bi-send-fill me-2"></i>
-                                            Submit Puppy Inquiry
+                                            Submit {{ $inquiryLabel }}
                                         </button>
                                     </div>
 
